@@ -17,12 +17,12 @@ int main() {
         elems.push_back(elem);
     }
     
-    Matrix::Matrix<double> matrix(matrix_degree, matrix_degree);
+    Matrix::Matrix<double> matrix(matrix_degree, matrix_degree, elems.begin(), elems.end());
     std::cin >> matrix;
     #if 1
     std::cout << matrix;
     #endif
-    std::cout << matrix.det() << std::endl;
+    std::cout << Matrix::det(matrix) << std::endl;
 
     return 0;
 }
