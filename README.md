@@ -20,7 +20,7 @@ cd build
 ```sh
 ./matrix
 ```
-Для запсука unit тестирования:
+Для запуcка unit тестирования:
 ```sh
 cd tests
 ./unit_tests
