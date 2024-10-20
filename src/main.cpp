@@ -3,26 +3,19 @@
 #include "matrix.hpp"
 
 int main() {
-    long long matrix_degree;
+    int matrix_degree = 0;
+    
     std::cin >> matrix_degree;
-    if ((!std::cin.good()) || (matrix_degree < 0)) {
+    if ((!std::cin.good()) || (matrix_degree <= 0)) {
         std::cerr << "Error input" << std::endl;
-        std::abort();
+        return -1;
     }
 
-    std::vector<double> elems = {};
-    double elem;
-    for (auto i = 0; i < matrix_degree * matrix_degree; i++) {
-        std::cin >> elem;
-        elems.push_back(elem);
-    }
-    
-    Matrix::Matrix<double> matrix(matrix_degree, matrix_degree, elems.begin(), elems.end());
+    Matrix::matrix_t<double> matrix{matrix_degree, matrix_degree};
+
     std::cin >> matrix;
-    #if 1
-    std::cout << matrix;
-    #endif
-    std::cout << Matrix::det(matrix) << std::endl;
+
+    std::cout << matrix.get_det_by_gauss_algorithm() << std::endl;
 
     return 0;
 }
