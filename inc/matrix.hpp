@@ -71,7 +71,7 @@ class matrix_t final : private matrix_buffer_t<ElemT> {
 
         double det = 1;
 
-        for (auto i = 0; i < rows; ++i) { 
+        for (auto i = 0; i < rows; ++i) {
             auto k = i;
 
             for (auto j = i + 1; j < rows; ++j) {
@@ -84,29 +84,26 @@ class matrix_t final : private matrix_buffer_t<ElemT> {
 
             if (i != k) {
                 double_matrix.swap_rows(i, k);
+
                 det *= -1;
             }
 
             det *= double_matrix[i][i];
 
             for (auto j = i + 1; j < rows; ++j) {
-                double_matrix[i][j] = double_matrix[i][j] / double_matrix[i][i];
-            }
+                double coeff = double_matrix[j][i] / double_matrix[i][i];
 
-            for (auto j = 0; j < rows; ++j) {
-                if ((j != i) && (!Compare::is_equal(double_matrix[j][i], 0))) {
-                    for (auto c = i + 1; c < cols; ++c) {
-                        double_matrix[j][c] -= double_matrix[i][c] * double_matrix[j][i];
-                    }
+                for (auto c = i; c < cols; ++c) {
+                    double_matrix[j][c] -= coeff * double_matrix[i][c];
                 }
             }
         }
 
         if (std::is_floating_point_v<ElemT>)
             return det;
-        
+
         return round(det);
-    }
+    } 
 //===================================================================================================
     public:
     void swap_rows(int first_row_number, int second_row_number) {
