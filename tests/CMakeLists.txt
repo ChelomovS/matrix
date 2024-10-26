@@ -18,8 +18,6 @@ aux_source_directory(unit UNIT_TESTS)
 
 enable_testing()
 
-add_subdirectory(googletest)
-
 add_executable(unit_tests ${SOURCES_FOR_TESTING} ${UNIT_TESTS})
 
 target_include_directories(unit_tests 
