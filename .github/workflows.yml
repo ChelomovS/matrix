@@ -1,0 +1,8 @@
+name: matrix
+on:
+  push:
+    branches: [ main ]
+  pull_requsts:
+    branches: [ main ]
+jobs:
+  main: ubuntu-latest
