@@ -3,7 +3,7 @@ on:
   push:
     branches: 
       - main
-  pull_requsts:
+  pull_request: 
     branches:
       - main
 jobs:
@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        shell: bash
-
+        shell: bash 
+        
     steps:
   - name: Install g++-20 
     run: sudo apt-get install g++-20
