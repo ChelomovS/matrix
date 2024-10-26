@@ -7,7 +7,10 @@ if(NOT DEFINED INCLUDE_DIR)
     message(WARNING "INCLUDE_DIR is not defined.")
 endif()
 
-set(CMAKE_CXX_STANDARD          17)
+find_package(GTest REQUIRED)
+enable_testing()
+
+set(CMAKE_CXX_STANDARD          20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES_FOR_TESTING
@@ -16,14 +19,12 @@ set(SOURCES_FOR_TESTING
 
 aux_source_directory(unit UNIT_TESTS)
 
-enable_testing()
-
 add_executable(unit_tests ${SOURCES_FOR_TESTING} ${UNIT_TESTS})
 
 target_include_directories(unit_tests 
-                           PRIVATE
-                           ${CMAKE_CURRENT_SOURCE_DIR}/googletest/include 
-                           ${INCLUDE_DIR}
+                            PRIVATE 
+                            ${INCLUDE_DIR}
+                            ${GTEST_INCLUDE_DIRS}
 )
 
-target_link_libraries(unit_tests gtest_main gmock_main)
+target_link_libraries(unit_tests gtest gtest_main)
