@@ -13,7 +13,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Install google test and g++-20
+    - name: Install google test and g++-20
       run: sudo apt-get install libgtest-dev googletest googletest-tools google-mock g++-20
 
     - name: Checkout repository
