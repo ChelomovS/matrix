@@ -1,4 +1,4 @@
-name: CI for CMake Project
+yamlname: CI for CMake Project
 on:
   push:
     branches:
@@ -15,18 +15,24 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install Google Test and G++
-      run: sudo apt-get install libgtest-dev googletest googletest-tools google-mock g++-20
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtest-dev cmake g++
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp lib/*.a /usr/lib
 
     - name: CMake Build (Release)
       run: |
         cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
-        cmake --build build/release --target tests
+        cmake --build build/release --target unit_tests
         cd build/release
         ctest --output-on-failure
 
     - name: CMake Build (Debug)
       run: |
         cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
-        cmake --build build/debug --target tests
+        cmake --build build/debug --target unit_tests
         cd build/debug
         ctest --output-on-failure
