@@ -20,13 +20,13 @@ jobs:
     - name: CMake Build (Release)
       run: |
         cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
-        cmake --build build/release --target all
+        cmake --build build/release --target tests
         cd build/release
         ctest --output-on-failure
 
     - name: CMake Build (Debug)
       run: |
         cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
-        cmake --build build/debug --target all
+        cmake --build build/debug --target tests
         cd build/debug
         ctest --output-on-failure
