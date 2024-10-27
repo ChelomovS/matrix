@@ -33,7 +33,7 @@ jobs:
     
     - name: CMake debug build
       run: cmake --build build --config Debug
-      
+
     - name: CMake debug test
       run: |
         cmake --build build --config Debug --target tests
