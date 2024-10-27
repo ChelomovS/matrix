@@ -27,6 +27,6 @@ target_include_directories(unit_tests
 
 enable_testing()
 
-target_link_libraries(unit_tests gtest gtest_main)
+target_link_libraries(unit_tests ${GTEST_BOTH_LIBRARIES})
 
 add_test(NAME unit_tests COMMAND unit_tests)
