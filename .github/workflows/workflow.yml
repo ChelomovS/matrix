@@ -1,4 +1,4 @@
-name: matrix
+name: CI for CMake Project
 on:
   push:
     branches:
@@ -6,36 +6,27 @@ on:
   pull_request:
     branches:
       - main
-jobs:
-  main:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-    - name: Install google test and g++-20
-      run: sudo apt-get install libgtest-dev googletest googletest-tools google-mock g++-20
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: CMake release config
-      run: cmake -S . -B build
+    - name: Install Google Test and G++
+      run: sudo apt-get install libgtest-dev googletest googletest-tools google-mock g++-20
 
-    - name: CMake release build
-      run: cmake --build build
-
-    - name: CMake release test
+    - name: CMake Build (Release)
       run: |
-        cmake --build build --target tests
-        cd build
+        cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
+        cmake --build build/release --target all
+        cd build/release
         ctest --output-on-failure
-    
-    - name: CMake debug build
-      run: cmake --build build --config Debug
 
-    - name: CMake debug test
+    - name: CMake Build (Debug)
       run: |
-        cmake --build build --config Debug --target tests
-        cd build
-        ctest --output-on-failure --config Debug
+        cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+        cmake --build build/debug --target all
+        cd build/debug
+        ctest --output-on-failure
