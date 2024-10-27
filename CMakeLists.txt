@@ -8,17 +8,12 @@ find_package(GTest REQUIRED)
 enable_testing()
 
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/inc)
-set(SRC_DIR     ${PROJECT_SOURCE_DIR}/src)
 
 aux_source_directory(src SRC_FILES)
 
 add_executable(matrix ${SRC_FILES})
 
-target_include_directories(matrix
-    PRIVATE 
-    ${INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIRS}
-)
+target_include_directories(matrix PRIVATE ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wpedantic -g -O0 -DDEBUG \
                           -Wmissing-declarations -Wcast-align      \

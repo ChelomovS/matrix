@@ -19,11 +19,7 @@ aux_source_directory(unit UNIT_TESTS)
 
 add_executable(unit_tests ${SOURCES_FOR_TESTING} ${UNIT_TESTS})
 
-target_include_directories(unit_tests 
-                            PRIVATE 
-                            ${INCLUDE_DIR}
-                            ${GTEST_INCLUDE_DIRS}
-)
+target_include_directories(unit_tests PRIVATE ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS})
 
 enable_testing()
 
