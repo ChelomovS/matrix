@@ -26,10 +26,16 @@ jobs:
       run: cmake --build build
 
     - name: CMake release test
-      run: env CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --target tests
+      run: |
+        cmake --build build --target tests
+        cd build
+        ctest --output-on-failure
     
     - name: CMake debug build
-      run: cmake --build build --config Debug  
-
+      run: cmake --build build --config Debug
+      
     - name: CMake debug test
-      run: env CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --config Debug --target tests
+      run: |
+        cmake --build build --config Debug --target tests
+        cd build
+        ctest --output-on-failure --config Debug
