@@ -8,7 +8,6 @@ if(NOT DEFINED INCLUDE_DIR)
 endif()
 
 find_package(GTest REQUIRED)
-enable_testing()
 
 set(CMAKE_CXX_STANDARD          20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,4 +26,7 @@ target_include_directories(unit_tests
                             ${GTEST_INCLUDE_DIRS}
 )
 
+enable_testing()
+
 target_link_libraries(unit_tests gtest gtest_main)
+add_test(NAME test_matrix COMMAND unit/unit_test.cpp) 
