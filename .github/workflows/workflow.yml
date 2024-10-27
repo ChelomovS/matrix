@@ -1,4 +1,4 @@
-yamlname: CI for CMake Project
+name: CI for CMake Project
 on:
   push:
     branches:
