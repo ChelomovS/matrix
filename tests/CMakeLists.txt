@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
 project(gtest)
-cmake_minimum_required(VERSION 3.11)
 
 if(NOT DEFINED INCLUDE_DIR)
     message(WARNING "INCLUDE_DIR is not defined.")
@@ -9,7 +8,7 @@ endif()
 
 find_package(GTest REQUIRED)
 
-set(CMAKE_CXX_STANDARD          20)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES_FOR_TESTING
@@ -29,4 +28,5 @@ target_include_directories(unit_tests
 enable_testing()
 
 target_link_libraries(unit_tests gtest gtest_main)
-add_test(NAME test_matrix COMMAND unit/unit_test.cpp) 
+
+add_test(NAME unit_tests COMMAND unit_tests)
