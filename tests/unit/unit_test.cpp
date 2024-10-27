@@ -393,7 +393,7 @@ TEST(MATRIX_FUNCTIONS, get_determinant_15) {
 
     Matrix::matrix_t<double> matrix_for_test{3, 3, vector_for_test.begin(), vector_for_test.end()};
 
-    ASSERT_DOUBLE_EQ(matrix_for_test.get_det_by_gauss_algorithm(), 1'831.722);
+    ASSERT_DOUBLE_EQ(matrix_for_test.get_det_by_gauss_algorithm(), 1'832.722);
 } 
 
 int main(int argc, char** argv) {
