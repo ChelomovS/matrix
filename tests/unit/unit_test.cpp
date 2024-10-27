@@ -1,7 +1,9 @@
 #include <gtest/gtest.h>
 #include <vector>
+#include <array>
 
 #include "matrix.hpp"
+#include "double_compare.hpp"
 
 TEST(MATRIX_FUNCTIONS, negate) {
     std::vector<double> vector_for_test{};
@@ -395,6 +397,42 @@ TEST(MATRIX_FUNCTIONS, get_determinant_15) {
 
     ASSERT_DOUBLE_EQ(matrix_for_test.get_det_by_gauss_algorithm(), 1'832.722);
 } 
+
+TEST(MATRIX_FUNCTIONS, get_determinant_16) {
+    std::array<int, 100> array_for_test{
+        12, 2, -170, 1742, -8, -2, -9, -10, -3, 5,
+        8, 2, -17, 536, -2, 0, -2, -3, -1, 1,
+        22, -8, -306, 1608, -14, 3, -5, -7, 1, 3,
+        8, -4, -34, 0, -2, 2, 1, 0, 1, -1,
+        20, -2, -153, 1139, -8, 3, -3, -6, 0, 2,
+        58, -6, -459, 3283, -23, 10, -8, -17, 0, 6,
+        -24, -12, -51, -1675, 3, 2, 7, 10, 5, -3,
+        -38, 2, 493, -4154, 23, 1, 19, 23, 5, -11,
+        -2, 0, 17, -335, 1, 1, 2, 2, 1, -1,
+        6, -2, -68, 402, -3, 1, -1, -2, 0, 1 
+    };
+
+    Matrix::matrix_t<int> matrix_for_test{10, 10, array_for_test.begin(), array_for_test.end()};
+    ASSERT_EQ(matrix_for_test.get_det_by_gauss_algorithm(), 4556);
+}
+
+TEST(MATRIX_FUNCTIONS, get_determinant_17) {
+    std::array<double, 100> array_for_test{
+        12, 2, -170, 1742, -8, -2, -9, -10, -3, 5,
+        8, 2, -17, 536, -2, 0, -2, -3, -1, 1,
+        22, -8, -306, 1608, -14, 3, -5, -7, 1, 3,
+        8, -4, -34, 0, -2, 2, 1, 0, 1, -1,
+        20, -2, -153, 1139, -8, 3, -3, -6, 0, 2,
+        58, -6, -459, 3283, -23, 10, -8, -17, 0, 6,
+        -24, -12, -51, -1675, 3, 2, 7, 10, 5, -3,
+        -38, 2, 493, -4154, 23, 1, 19, 23, 5, -11,
+        -2, 0, 17, -335, 1, 1, 2, 2, 1, -1,
+        6, -2, -68, 402, -3, 1, -1, -2, 0, 1 
+    };
+
+    Matrix::matrix_t<double> matrix_for_test{10, 10, array_for_test.begin(), array_for_test.end()};
+    ASSERT_TRUE(Compare::is_equal(matrix_for_test.get_det_by_gauss_algorithm(), 4556.0));
+}
 
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
