@@ -35,5 +35,4 @@ jobs:
         cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
         cmake --build build/release
         cd build/debug
-        ./matrix 1 1
-        
+        ./matrix < ../../test.in
