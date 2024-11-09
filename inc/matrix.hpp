@@ -74,10 +74,9 @@ class matrix_t final : private matrix_buffer_t<ElemT> {
         for (auto i = 0; i < rows; ++i) {
             auto k = i;
 
-            for (auto j = i + 1; j < rows; ++j) {
+            for (auto j = i + 1; j < rows; ++j) 
                 if (abs(double_matrix[j][i]) > abs(double_matrix[k][i]))
                     k = j;
-            }
 
             if (Compare::is_equal(double_matrix[k][i], 0))
                 return 0;
