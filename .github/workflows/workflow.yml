@@ -30,9 +30,3 @@ jobs:
         cmake --build build/debug
         cd build/debug
         ctest --output-on-failure
-    - name: Run program with input 
-      run: | 
-        cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
-        cmake --build build/release
-        cd build/debug
-        ./matrix < ../../test.in
