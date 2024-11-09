@@ -63,43 +63,43 @@ class matrix_t final : private matrix_buffer_t<ElemT> {
         return ProxyRow{buf_ + n * cols_};
     }
 
-ElemT get_det_by_gauss_algorithm() const {
-    int rows = get_rows();
-    int cols = get_cols();
+    ElemT get_det_by_gauss_algorithm() const {
+        int rows = get_rows();
+        int cols = get_cols();
 
-    matrix_t<double> double_matrix{*this}; 
+        matrix_t<double> double_matrix{*this}; 
 
-    double det = 1.0; 
+        double det = 1.0; 
 
-    for (int i = 0; i < rows; ++i) {
-        int k = i;
-        for (int j = i + 1; j < rows; ++j) {
-            if (std::abs(double_matrix[j][i]) > std::abs(double_matrix[k][i])) {
-                k = j;
+        for (int i = 0; i < rows; ++i) {
+            int k = i;
+            for (int j = i + 1; j < rows; ++j) {
+                if (std::abs(double_matrix[j][i]) > std::abs(double_matrix[k][i])) {
+                    k = j;
+                }
+            }
+
+            if (Compare::is_equal(double_matrix[k][i], 0.0)) {
+                return 0.0;
+            }
+
+            if (i != k) {
+                double_matrix.swap_rows(i, k);
+                det *= -1.0;
+            }
+
+            det *= double_matrix[i][i];
+
+            for (int j = i + 1; j < rows; ++j) {
+                double coeff = double_matrix[j][i] / double_matrix[i][i];
+                for (int c = i; c < cols; ++c) {
+                    double_matrix[j][c] -= coeff * double_matrix[i][c];
+                }
             }
         }
 
-        if (Compare::is_equal(double_matrix[k][i], 0.0)) {
-            return 0.0;
-        }
-
-        if (i != k) {
-            double_matrix.swap_rows(i, k);
-            det *= -1.0;
-        }
-
-        det *= double_matrix[i][i];
-
-        for (int j = i + 1; j < rows; ++j) {
-            double coeff = double_matrix[j][i] / double_matrix[i][i];
-            for (int c = i; c < cols; ++c) {
-                double_matrix[j][c] -= coeff * double_matrix[i][c];
-            }
-        }
+        return std::is_floating_point_v<ElemT> ? det : std::round(det);
     }
-
-    return std::is_floating_point_v<ElemT> ? det : std::round(det);
-}
 //===================================================================================================
     public:
     void swap_rows(int first_row_number, int second_row_number) {
