@@ -409,7 +409,7 @@ TEST(MATRIX_FUNCTIONS, get_determinant_16) {
         -24, -12, -51, -1675, 3, 2, 7, 10, 5, -3,
         -38, 2, 493, -4154, 23, 1, 19, 23, 5, -11,
         -2, 0, 17, -335, 1, 1, 2, 2, 1, -1,
-        6, -2, -68, 402, -3, 1, -1, -2, 0, 1 
+        6, -2, -68, 402, -3, 1, -1, -2, 0, 1,
     };
 
     Matrix::matrix_t<int> matrix_for_test{10, 10, array_for_test.begin(), array_for_test.end()};
@@ -427,7 +427,7 @@ TEST(MATRIX_FUNCTIONS, get_determinant_17) {
         -24, -12, -51, -1675, 3, 2, 7, 10, 5, -3,
         -38, 2, 493, -4154, 23, 1, 19, 23, 5, -11,
         -2, 0, 17, -335, 1, 1, 2, 2, 1, -1,
-        6, -2, -68, 402, -3, 1, -1, -2, 0, 1 
+        6, -2, -68, 402, -3, 1, -1, -2, 0, 1,
     };
 
     Matrix::matrix_t<double> matrix_for_test{10, 10, array_for_test.begin(), array_for_test.end()};
