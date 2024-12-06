@@ -117,7 +117,7 @@ class matrix_t final : private matrix_buffer_t<ElemT> {
         }
     }
 
-    matrix_t& negate() & noexcept {
+    matrix_t& negate() & {
         for (size_t i = 0; i < rows_; ++i) {
             for (size_t j = 0; j < cols_; ++j) {
                 buf_[i * cols_ + j] *= -1;
