@@ -3,7 +3,7 @@
 #include "matrix.hpp"
 
 int main() {
-    int matrix_degree = 0;
+    size_t matrix_degree = 0;
     
     std::cin >> matrix_degree;
     if ((!std::cin.good()) || (matrix_degree <= 0)) {

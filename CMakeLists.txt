@@ -1,8 +1,5 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.15)
 project(matrix)
-
-set(CMAKE_CXX_STANDARD          20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(GTest REQUIRED)
 enable_testing()
@@ -13,19 +10,27 @@ aux_source_directory(src SRC_FILES)
 
 add_executable(matrix ${SRC_FILES})
 
-target_include_directories(matrix PRIVATE ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS})
+target_include_directories(matrix PUBLIC ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wpedantic -g -O0 -DDEBUG \
-                          -Wmissing-declarations -Wcast-align      \
-                          -Wunused -Wshadow -Wsign-conversion      \
-                          -fsanitize=address -fsanitize=undefined")
-
-set_target_properties(
-    matrix PROPERTIES
-    CXX_STANDARD          20
-    CXX_STANDARD_REQUIRED ON
+target_compile_options(matrix PRIVATE 
+    $<$<CONFIG:DEBUG>:
+        -Wall
+        -Wextra
+        -Wpedantic
+        -g
+        -O0
+        -DDEBUG
+        -Wmissing-declarations
+        -Wcast-align
+        -Wunused
+        -Wshadow
+        -Wsign-conversion
+        -fsanitize=address
+        -fsanitize=undefined>
 )
 
 add_subdirectory(tests)
 
-target_link_libraries(matrix ${GTEST_BOTH_LIBRARIES})
+target_compile_features(matrix PUBLIC cxx_std_20)
+target_link_libraries(matrix ${GTEST_BOTH_LIBRARIES} -fsanitize=address)
+

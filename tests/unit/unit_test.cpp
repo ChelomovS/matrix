@@ -1,9 +1,13 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <array>
+#include <iostream>
 
 #include "matrix.hpp"
 #include "double_compare.hpp"
+#include "controllable.hpp"
+
+int Controllable::control = 0;
 
 TEST(MATRIX_FUNCTIONS, negate) {
     std::vector<double> vector_for_test{};
@@ -386,9 +390,11 @@ TEST(MATRIX_FUNCTIONS, get_determinant_15) {
     vector_for_test.push_back(1.5);
     vector_for_test.push_back(67.0);
     vector_for_test.push_back(32.2);
+
     vector_for_test.push_back(-34.8);
     vector_for_test.push_back(43.0);
     vector_for_test.push_back(54.0);
+
     vector_for_test.push_back(0.5);
     vector_for_test.push_back(0.8);
     vector_for_test.push_back(0.7);
@@ -432,6 +438,38 @@ TEST(MATRIX_FUNCTIONS, get_determinant_17) {
 
     Matrix::matrix_t<double> matrix_for_test{10, 10, array_for_test.begin(), array_for_test.end()};
     ASSERT_TRUE(Compare::is_equal(matrix_for_test.get_det_by_gauss_algorithm(), 4556.0));
+}
+
+TEST(MATRIX_FUNCTIONS, copy_ctor) {
+    Matrix::matrix_t<Controllable> matrix1{3, 3};
+
+    Controllable::control = 0;
+    
+    bool exception_thrown = false;
+
+    try {
+        Matrix::matrix_t<Controllable> matrix2{matrix1};
+    } catch (std::bad_alloc&) {
+        exception_thrown = true;
+    }
+
+    ASSERT_FALSE(exception_thrown);
+}
+
+TEST(MATRIX_FUNCTIONS, copy_assignment) {
+    Matrix::matrix_t<Controllable> matrix1{3, 3};
+
+    Controllable::control = 0;
+
+    bool exception_thrown = false;
+    
+    try {
+        Matrix::matrix_t<Controllable> matrix2 = matrix1;
+    } catch (std::bad_alloc&) {
+        exception_thrown = true;
+    }
+
+    ASSERT_FALSE(exception_thrown); 
 }
 
 int main(int argc, char** argv) {
