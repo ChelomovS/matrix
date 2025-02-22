@@ -33,4 +33,10 @@ target_compile_options(matrix PRIVATE
 add_subdirectory(tests)
 
 target_compile_features(matrix PUBLIC cxx_std_20)
-target_link_libraries(matrix ${GTEST_BOTH_LIBRARIES} -fsanitize=address)
+
+target_link_libraries(matrix PRIVATE
+    $<$<CONFIG:Debug>:
+        -fsanitize=address
+        -fsanitize=undefined>
+    ${GTEST_BOTH_LIBRARIES}
+)
