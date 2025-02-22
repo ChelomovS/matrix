@@ -14,7 +14,7 @@ target_sources(unit_tests PRIVATE
 target_include_directories(unit_tests PRIVATE 
     ${GTEST_INCLUDE_DIRS} 
     ../inc 
-    unit/controllable.hpp
+    unit
 )
 
 enable_testing()
