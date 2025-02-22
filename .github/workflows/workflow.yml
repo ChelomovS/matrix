@@ -9,22 +9,22 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: сheckout repository
+      uses: actions/checkout@v4
 
-    - name: Install Google Test and G++
+    - name: install deps
       run: sudo apt-get install -y libgtest-dev cmake g++
 
-    - name: CMake Build (Release)
+    - name: release build
       run: |
         cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
         cmake --build build/release
         cd build/release
         ctest --output-on-failure
 
-    - name: CMake Build (Debug)
+    - name: debug build
       run: |
         cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
         cmake --build build/debug

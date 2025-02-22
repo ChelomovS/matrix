@@ -1,16 +1,17 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.11)
 project(matrix)
 
 find_package(GTest REQUIRED)
 enable_testing()
 
-set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/inc)
+add_executable(matrix)
 
-aux_source_directory(src SRC_FILES)
+target_include_directories(matrix PUBLIC ${GTEST_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/inc)
 
-add_executable(matrix ${SRC_FILES})
-
-target_include_directories(matrix PUBLIC ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS})
+target_sources(matrix PRIVATE
+    src/double_compare.cpp
+    src/main.cpp
+)
 
 target_compile_options(matrix PRIVATE 
     $<$<CONFIG:DEBUG>:
@@ -33,4 +34,3 @@ add_subdirectory(tests)
 
 target_compile_features(matrix PUBLIC cxx_std_20)
 target_link_libraries(matrix ${GTEST_BOTH_LIBRARIES} -fsanitize=address)
-

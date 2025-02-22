@@ -2,23 +2,20 @@ cmake_minimum_required(VERSION 3.11)
 
 project(gtest)
 
-if(NOT DEFINED INCLUDE_DIR)
-    message(WARNING "INCLUDE_DIR is not defined.")
-endif()
-
 find_package(GTest REQUIRED)
 
-set(SOURCES_FOR_TESTING
+add_executable(unit_tests)
+
+target_sources(unit_tests PRIVATE
     ../src/double_compare.cpp
+    unit/unit_test.cpp
 )
 
-set(HEADERS 
-    unit/controllanle.hpp)
-aux_source_directory(unit UNIT_TESTS)
-
-add_executable(unit_tests ${SOURCES_FOR_TESTING} ${UNIT_TESTS})
-
-target_include_directories(unit_tests PRIVATE ${INCLUDE_DIR} ${GTEST_INCLUDE_DIRS} ${HEADERS})
+target_include_directories(unit_tests PRIVATE 
+    ${GTEST_INCLUDE_DIRS} 
+    ../inc 
+    unit/controllable.hpp
+)
 
 enable_testing()
 

@@ -6,7 +6,7 @@
 #include <utility>
 
 struct Controllable {
-    static int control;
+    static int control_;
     int* resource_;
 
     Controllable() : resource_(new int(42)) {}
@@ -21,12 +21,12 @@ struct Controllable {
     }
 
     Controllable(const Controllable &rhs) : resource_(new int(*rhs.resource_)) {
-        if (control == 0) {
-            control = 1;
+        if (control_ == 0) {
+            control_ = 1;
             std::cout << "Control reached" << std::endl;
             throw std::bad_alloc{};
         }
-        control -= 1;
+        control_ -= 1;
     }
 
     Controllable& operator=(const Controllable &rhs) {

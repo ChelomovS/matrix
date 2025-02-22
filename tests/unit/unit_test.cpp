@@ -7,7 +7,7 @@
 #include "double_compare.hpp"
 #include "controllable.hpp"
 
-int Controllable::control = 0;
+int Controllable::control_ = 0;
 
 TEST(MATRIX_FUNCTIONS, negate) {
     std::vector<double> vector_for_test{};
@@ -443,7 +443,7 @@ TEST(MATRIX_FUNCTIONS, get_determinant_17) {
 TEST(MATRIX_FUNCTIONS, copy_ctor) {
     Matrix::matrix_t<Controllable> matrix1{3, 3};
 
-    Controllable::control = 0;
+    Controllable::control_ = 0;
     
     bool exception_thrown = false;
 
@@ -459,7 +459,7 @@ TEST(MATRIX_FUNCTIONS, copy_ctor) {
 TEST(MATRIX_FUNCTIONS, copy_assignment) {
     Matrix::matrix_t<Controllable> matrix1{3, 3};
 
-    Controllable::control = 0;
+    Controllable::control_ = 0;
 
     bool exception_thrown = false;
     
